@@ -1,53 +1,56 @@
 import time
 import requests
+import threading
+import os
+from http.server import BaseHTTPRequestHandler, HTTPServer
 
-# Placeholder endpoint - replace with your actual environment variable or target configuration
-DATABASE_URL = "https://your-project-default-rtdb.firebaseio.com/chats.json"
+# --- FAKE WEB SERVER TO KEEP RENDER HAPPY ---
+class DummyHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header('Content-type', 'text/plain')
+        self.end_headers()
+        self.wfile.write(b"FORB1D Bot is running online! 👽")
+
+def keep_alive():
+    # Render assigns a dynamic port, we must use it
+    port = int(os.environ.get("PORT", 10000))
+    server = HTTPServer(('0.0.0.0', port), DummyHandler)
+    print(f"✅ Web port {port} opened! Render is happy.")
+    server.serve_forever()
+
+
+# --- YOUR FIREBASE CODE ---
+DATABASE_URL = "https://spammerachatv4-default-rtdb.asia-southeast1.firebasedatabase.app/global_chats.json"
 
 def send_message(message_text):
-    """Encodes a payload and sends an HTTP POST request."""
     payload = {
         "username": "FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥",
         "displayName": " 🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱 ",
         "message": message_text,
-        "jobIdLocation": "External_Server",
+        "jobIdLocation": "Render_Cloud",
         "timestamp": int(time.time())
     }
     
     try:
         response = requests.post(DATABASE_URL, json=payload, timeout=10)
-        
         if response.status_code == 200:
             print("🔥 Message successfully posted!")
         else:
             print(f"❌ Failed to send. Status Code: {response.status_code}")
-            print(f"Server Response: {response.text}")
-            
     except requests.exceptions.RequestException as e:
         print(f"❌ Network connection error: {e}")
 
-def read_messages():
-    """Retrieves data using an HTTP GET request."""
-    try:
-        response = requests.get(DATABASE_URL, timeout=10)
-        if response.status_code == 200 and response.text != "null":
-            data = response.json()
-            print("📡 Current Data standard output:", data)
-        else:
-            print(f"❌ Failed to read data. Status Code: {response.status_code}")
-    except requests.exceptions.RequestException as e:
-        print(f"❌ Network connection error: {e}")
 
-# --- Execution Flow ---
+# --- EXECUTION FLOW ---
 if __name__ == "__main__":
-    output_text = "FORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOPFORB1D RUNS THIS CHAT NOW 👽✌️ FORBID ON TOP"
+    # 1. Start the fake web server in the background so Render doesn't shut us down
+    threading.Thread(target=keep_alive, daemon=True).start()
     
-    print("🚀 Starting Python execution loop...")
+    output_text = "FORB1D RUNS THIS CHAT NOW 👽✌️"
+    print("🚀 Starting execution loop...")
     
-    # Infinite loop logic
+    # 2. Run your infinite loop
     while True:
         send_message(output_text)
-        
-        # A delay is essential to prevent local resource starvation 
-        # and respect remote server rate limits.
         time.sleep(2.0)
