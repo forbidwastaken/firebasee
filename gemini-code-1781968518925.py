@@ -8,9 +8,10 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 class DummyHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         self.send_response(200)
-        self.send_header('Content-type', 'text/plain')
+        self.send_header('Content-type', 'text/plain; charset=utf-8')
         self.end_headers()
-        self.wfile.write(b"FORB1D Bot is running online! 👽")
+        # FIXED LINE: Encoding the emoji properly so Python doesn't crash
+        self.wfile.write("FORB1D Bot is running online! 👽".encode('utf-8'))
 
 def keep_alive():
     # Render assigns a dynamic port, we must use it
@@ -25,8 +26,8 @@ DATABASE_URL = "https://spammerachatv4-default-rtdb.asia-southeast1.firebasedata
 
 def send_message(message_text):
     payload = {
-        "username": "FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥FORB1D🔥",
-        "displayName": " 🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱🔱 FORBID THE BEST HACKER 🔱 ",
+        "username": "FORB1D🔥",
+        "displayName": "SYSTEM_OVERRIDE",
         "message": message_text,
         "jobIdLocation": "Render_Cloud",
         "timestamp": int(time.time())
