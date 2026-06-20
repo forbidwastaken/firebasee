@@ -54,4 +54,4 @@ if __name__ == "__main__":
     # 2. Run your infinite loop
     while True:
         send_message(output_text)
-        time.sleep(0.8)
+        time.sleep(0.000000001)
